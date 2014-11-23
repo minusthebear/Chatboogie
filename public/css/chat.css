@@ -1,0 +1,6 @@
+#chatWrap {
+	height:300px;
+	width:500px;
+	overflow:auto;
+	background-color:rgb(230,230,230);
+}

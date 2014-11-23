@@ -1,0 +1,93 @@
+
+    <div class="row" id="main-chat-screen">
+      <div class="col-md-3">
+          <!--<ul>-->
+              <!--<li ng-repeat="room in rooms">-->
+                  <!--<span>{{room.name}}</span>-->
+              <!--</li>-->
+          <!--</ul>-->
+          
+          <!--<ul>-->
+              <!--<li ng-repeat="person in people">-->
+                  <!--<span>{{room.name}}</span>-->
+              <!--</li>-->
+          <!--</ul>-->
+          
+          <!--<ul>-->
+              <!--<li ng-repeat="dr in doctors">-->
+                  <!--<span>{{room.name}}</span>-->
+              <!--</li>-->
+          <!--</ul>-->
+          
+<!--
+        <ul id="rooms" class="list-group">Rooms</ul>
+        <ul id="people" class="list-group">{{person}} - {{symptoms}}</ul>
+        <ul id="doctors" class="list-group">{{doctor}} - {{qualification}}</ul>
+      </div>
+      <div class="col-md-6">
+        <div id="conversation">
+          <ul id="msgs" class="list-unstyled"></ul>
+        </div>
+        <form id="chatForm" class="form-inline">
+          <div class="form-group">
+            <input type="text" class="form-control input-lg" placeholder="Your message" id="msg">
+          </div>
+          <input type="submit" name="send" id="send" value="Send" class="btn btn-success btn-lg">
+          <input type="button" name="start_button" id="start_button" value="Record" onclick="startButton(event)" class="btn btn-info btn-lg">
+          <div class="btn-group">
+            <button type="button" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown" >
+              Actions <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#" name="createRoom" data-toggle="modal" data-target="#roomModal">Create room</a></li>
+              <li><a href="#" name="leave" id="leave">Leave current room</a></li>
+
+              <!--<li><a href="#" name="disconnect" id="disconnect">Disconnect from chat</a></li>-->
+<!--
+            </ul>
+          </div>
+        </form>
+      </div>
+       <div class="col-md-2">
+        <ul class="list-unstyled" id="updates"></ul>
+      </div>
+    </div>
+  </div>
+-->
+
+  <!-- Modal start -->
+<!--
+  <div class="modal fade" id="roomModal" tabindex="-1" role="dialog" aria-labelledby="createRoomLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="createRoomLabel">Create room</h4>
+        </div>
+        <div class="modal-body">
+          You can create a chat room here. Names have to be unique.
+          <form class="form-inline" id="createRoomForm"><input type="text" class="form-control input-lg"  placeholder="Room name" id="createRoomName"></form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Close</button>
+          <button data-dismiss="modal" id="createRoomBtn" class="btn btn-success btn-lg">Create room</button>
+        </div>
+      </div>
+    </div>
+  </div>
+-->
+
+  
+    <div>
+        <div class="chatWrap">
+			
+				{{PersonA.name}}<br>
+				{{PersonA.symptoms}}
+            <ul>
+                <li ng-repeat="msg in msgs track by $index">{{msg}}</li>
+            </ul>
+        </div>
+        <form ng-submit="sendMsg()">
+            <input type="text" ng-model="chat.msg"/>
+        </form>
+    </div>
