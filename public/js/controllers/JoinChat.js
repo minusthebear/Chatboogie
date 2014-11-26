@@ -1,11 +1,9 @@
-app.controller('JoinChat',
-	function JoinChat($scope, $location, $http) {
-		$scope.peopleJoinChat = function() {
+app.controller('JoinChat', ['$scope', '$location', '$http', 'socket', 'personService', 
+	function JoinChat($scope, $location, $http, socket, personService) {
+		$scope.peopleJoinChat = function(person) {
 			$location.url('/chat-page');
-			
-				};
-		$scope.signin = function(username, password) {
-			$location.url('/chat-page');
+			personService.setPerson(person);
 
-			};
-		});
+
+		};
+	}]);

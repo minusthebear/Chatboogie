@@ -1,6 +1,8 @@
 
+<!--
     <div class="row" id="main-chat-screen">
       <div class="col-md-3">
+-->
           <!--<ul>-->
               <!--<li ng-repeat="room in rooms">-->
                   <!--<span>{{room.name}}</span>-->
@@ -80,11 +82,17 @@
   
     <div>
         <div class="chatWrap">
-			
-				{{PersonA.name}}<br>
-				{{PersonA.symptoms}}
+			<ul>
+				{{person.name}}
+				<li ng-repeat="peeps in people">
+					<span>{{peeps.user}}</span>
+				</li>
+			</ul>
+				{{doctor.name}}<br/>
+				{{doctor.qualification}}<br/>
+				{{doctor.password}}<br/>
             <ul>
-                <li ng-repeat="msg in msgs track by $index">{{msg}}</li>
+                <li ng-repeat="msg in msgs track by $index">{{msg.user}}: {{msg.text}}</li>
             </ul>
         </div>
         <form ng-submit="sendMsg()">

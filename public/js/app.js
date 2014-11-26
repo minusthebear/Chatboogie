@@ -5,7 +5,12 @@ var app = angular.module('app', ['ngResource', 'ngRoute'])
 			{ 
 				templateUrl: '/partials/login-page.html', 
 				controller: 'JoinChat' 
-			}).when('/chat-page', {
+			})
+			.when('/doctor-login', { 
+				templateUrl: '/partials/doctor-login.html', 
+				controller: 'DoctorJoinChat' 
+			})
+			.when('/chat-page', {
 				templateUrl: '/partials/chat-page.html', 
 				controller: 'ChatCtrl' 				
 			}).otherwise({ 
@@ -18,8 +23,30 @@ var app = angular.module('app', ['ngResource', 'ngRoute'])
 
 	});
 	
-app.factory('socket', function(){
-    return io.connect('http://localhost:3000');
+app.factory('socket', function () {
+	return io.connect('http://localhost:3000');
+
+//  var socket = io.connect('http://localhost:3000');
+/*  return {
+    on: function (eventName, callback) {
+      socket.on(eventName, function () {  
+        var args = arguments;
+        $rootScope.$apply(function () {
+          callback.apply(socket, args);
+        });
+      });
+    },
+    emit: function (eventName, data, callback) {
+      socket.emit(eventName, data, function () {
+        var args = arguments;
+        $rootScope.$apply(function () {
+          if (callback) {
+            callback.apply(socket, args);
+          }
+        });
+      })
+    }
+  }; */
 });
 
 

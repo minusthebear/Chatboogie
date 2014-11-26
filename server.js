@@ -10,11 +10,7 @@ require('./public/js/express')(app);
 
 var routes = require('./public/js/routes')(app);
 
-io.sockets.on('connection', function(socket){
-    socket.on('send msg', function(data){
-        io.sockets.emit('get msg', data);
-    })
-})
+require('./routes/Socket')(io);
 
 server.listen(3000);
 
