@@ -1,9 +1,11 @@
-app.controller('ChatCtrl', ['$scope', '$log', 'socket', 
-	function ($scope, $log, socket) {
+app.controller('ChatCtrl', ['$scope', '$log', 'socket', 'personService', 'doctorService',
+	function ($scope, $log, socket, personService, doctorService) {
 				
 		$scope.msgs = [];
 
-
+		$scope.person = personService.getPerson();
+		
+		$scope.doctor = doctorService.getDoctor();
 
 		socket.on('send-msg', function(message) {
 			$scope.msgs.push({
@@ -14,14 +16,22 @@ app.controller('ChatCtrl', ['$scope', '$log', 'socket',
 		});
 
 		$scope.sendMsg = function() {
+			var name;
+			if (typeof $scope.person !== undefined) {
+				name = $scope.person.name;
+			} else if (typeof $scope.doctor !== undefined) {
+				name = $scope.doctor.name;
+			} else {
+				return false;
+			}
 			
 			socket.emit('send-msg', {
-				user: $scope.person.name,
+				user: name,
 				message: $scope.chat.msg
 			});
 			//add the message to our model locally
 			$scope.msgs.push({
-				user: $scope.person.name,
+				user: name,
 				text: $scope.chat.msg
 			});
 			$scope.chat.msg = '';

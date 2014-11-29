@@ -85,16 +85,16 @@
 			<div ng-controller="PeopleListCtrl">
 				<ul>
 					{{person.name}}
-					<li ng-repeat="peeps in people">
-						<span ng-show="peeps.user!=person.name">{{peeps.user}}</span>
+					<li ng-repeat="peeps in people" ng-show="peeps.user!=person.name">
+						<span>{{peeps.user}}</span>
 					</li>
 				</ul>			
 			</div>
 			<div ng-controller="DoctorListCtrl">
 				<ul>
 					{{doctor.name}}
-					<li ng-repeat="doc in doctors">
-						<span ng-show="doc.user!=doctor.name">{{doc.user}}</span>
+					<li ng-repeat="doc in doctors" ng-show="doc.user!=doctor.name">
+						<span>{{doc.user}}</span>
 					</li>
 				</ul>
 			</div>			
