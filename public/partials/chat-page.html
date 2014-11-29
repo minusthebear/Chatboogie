@@ -82,18 +82,27 @@
   
     <div>
         <div class="chatWrap">
-			<ul>
-				{{person.name}}
-				<li ng-repeat="peeps in people">
-					<span>{{peeps.user}}</span>
-				</li>
-			</ul>
-				{{doctor.name}}<br/>
-				{{doctor.qualification}}<br/>
-				{{doctor.password}}<br/>
-            <ul>
-                <li ng-repeat="msg in msgs track by $index">{{msg.user}}: {{msg.text}}</li>
-            </ul>
+			<div ng-controller="PeopleListCtrl">
+				<ul>
+					{{person.name}}
+					<li ng-repeat="peeps in people">
+						<span ng-show="peeps.user!=person.name">{{peeps.user}}</span>
+					</li>
+				</ul>			
+			</div>
+			<div ng-controller="DoctorListCtrl">
+				<ul>
+					{{doctor.name}}
+					<li ng-repeat="doc in doctors">
+						<span ng-show="doc.user!=doctor.name">{{doc.user}}</span>
+					</li>
+				</ul>
+			</div>			
+			<div>
+				<ul>
+					<li ng-repeat="msg in msgs track by $index">{{msg.user}}: {{msg.text}}</li>
+				</ul>
+			</div>
         </div>
         <form ng-submit="sendMsg()">
             <input type="text" ng-model="chat.msg"/>

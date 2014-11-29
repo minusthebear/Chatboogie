@@ -1,62 +1,55 @@
 var _ = require('underscore')._;
 
-// Keep track of which names are used so that there are no duplicates
-var userNames = (function () {
-  var names = {};
 
-  var claim = function (name) {
-    if (!name || names[name]) {
-      return false;
-    } else {
-      names[name] = true;
-      return true;
-    }
-  };
-
-  // find the lowest unused "guest" name and claim it
-  var getGuestName = function () {
-    var name;
- 
-    return name;
-  };
-
-  // serialize claimed names as an array
-  var get = function () {
-    var res = [];
-    for (user in names) {
-      res.push(user);
-    }
-
-    return res;
-  };
-
-  var free = function (name) {
-    if (names[name]) {
-      delete names[name];
-    }
-  };
-
-  return {
-    claim: claim,
-    free: free,
-    get: get,
-    getGuestName: getGuestName
-  };
-}());
 
 // export function for listening to the socket
 module.exports = function (io) {
 	var people = {};
+	var doctors = {};
+	var namesUsed = [];
 	var sockets = [];
-	var sizePeople = _.size(people);
+//	var sizePeople = _.size(people);
+//	var sizeDoctors = _.size(doctors);
+/*
+	function clientDisconnection(socket, people, doctors, namesUsed) {
+		socket.on('disconnect', function() {
+			var self;
+			if ((typeof people[socket.id] !== "undefined") && (people[socket.id].type == "people")){
+				self = people[socket.id];
+			} else if ((typeof doctors[socket.id] !== "undefined") && (doctors[socket.id].type == "doctors")){
+				self = doctors[socket.id];
+			} else { return false }
+
+			var nameIndex = namesUsed.indexOf(self);
+			console.log(namesUsed);
+			delete namesUsed[nameIndex];
+			delete self; 
+			io.sockets.emit('update-people', {people: people, count: sizePeople, names: namesUsed});
+			io.sockets.emit('update-doctors', {doctors: doctors, count: sizeDoctors, names: namesUsed});
+			console.log("People size: " + sizePeople + ", Doctors size: " + sizeDoctors);
+		});
+	} */
+	
+
 
 	io.sockets.on('connection', function(socket){
 		
 		socket.on('people-join-server', function (data) {
-			people[socket.id] = {"user": data.user, "symptoms": data.symptoms};
-			sockets.push(socket);
-			
-			io.sockets.emit('update-people', {people: people, count: sizePeople});
+			people[socket.id] = {"user": data.user, "symptoms": data.symptoms, "type": data.people};
+			console.log(people);
+			namesUsed.push(data.user);
+			io.sockets.emit('update-people', {people: people, count: _.size(people), names: namesUsed});
+			console.log("People size: " + _.size(people) + ", Doctors size: " + _.size(doctors));
+			console.log(_.size(people));
+			console.log(_.size(doctors));
+		});
+		
+		socket.on('doctors-join-server', function (data) {
+			doctors[socket.id] = {"user": data.user, "qualification": data.qualification, "password": data.password, "type": data.doctors};
+			console.log(doctors);
+			namesUsed.push(data.user);
+//			io.sockets.emit('update-people', {people: people, count: sizePeople, names: namesUsed});
+			io.sockets.emit('update-doctors', {doctors: doctors, count: _.size(doctors), names: namesUsed});
 		});
 
 		//broadcast to other users
@@ -67,61 +60,8 @@ module.exports = function (io) {
 			});
 		});
 		
-/*		socket.on('user-disconnect', function () {
-//			var sockets = [];
-			
-			socket.broadcast.emit('user-disconnect', {
-				name: people[socket.id]
-			});
-			io.sockets.emit('update-people', {people: people, count: sizePeople});
-			var o = _.findWhere(sockets, {'id': socket.id});
-			sockets = _.without(sockets, o);
-		});
-*/
+//		clientDisconnection(socket, people, doctors, namesUsed);
+		
 	});
-
-
-  //// send the new user their name and a list of users
-  //socket.emit('init', {
-    //name: name,
-    //users: userNames.get()
-  //});
-
-  //// notify other clients that a new user has joined
-  //socket.broadcast.emit('user:join', {
-    //name: name
-  //});
-
-/*
-  // validate a user's name change, and broadcast it on success
-  socket.on('change:name', function (data, fn) {
-    if (userNames.claim(data.name)) {
-      var oldName = name;
-      userNames.free(oldName);
-
-      name = data.name;
-      
-      socket.broadcast.emit('change:name', {
-        oldName: oldName,
-        newName: name
-      });
-
-      fn(true);
-    } else {
-      fn(false);
-    }
-  });
-*/
-
-
-/*
-  // clean up when a user leaves, and broadcast it to other users
-  socket.on('disconnect', function () {
-    socket.broadcast.emit('user:left', {
-      name: name
-    });
-    userNames.free(name);
-  });
-*/
 };
 
