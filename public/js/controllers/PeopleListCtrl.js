@@ -1,21 +1,14 @@
 app.controller('PeopleListCtrl', ['$scope', '$log', 'socket', 'personService', 
 	function ($scope, $log, socket, personService) {
-		
-		$scope.person = personService.getPerson();
-
-		$log.log($scope.person.name + " person")		
-
-		socket.emit('people-join-server', {
-			user: $scope.person.name,
-			symptoms: $scope.person.symptoms,
-			people: "people"
+		socket.emit('initialUpdate', {
+			id: "P"
 		});
-
-		socket.on("update-people", function(data) {
+		socket.emit('getPeopleList', {});
+		
+		socket.on("updatePeople", function(data) {
 			$scope.people = data.people;
 			$scope.count = data.count;
 			$scope.namesUsed = data.names;				
 			$scope.$digest();
 		});
-
 	}]);

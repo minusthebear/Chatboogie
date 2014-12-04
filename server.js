@@ -9,8 +9,8 @@ var express = require('express')
 require('./public/js/express')(app);
 
 var routes = require('./public/js/routes')(app);
-
-require('./routes/Socket')(io);
+var Room = require('./routes/Room');
+require('./routes/Socket')(io, Room);
 
 server.listen(3000);
 

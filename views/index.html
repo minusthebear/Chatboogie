@@ -4,6 +4,7 @@
 	
   <title>Chat 3.0</title>
   <link rel="stylesheet" href="css/chat.css"/> 
+  <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.css">
 
   <script src="components/jquery/dist/jquery.min.js" ></script>
   <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -13,19 +14,26 @@
   <script src="js/app.js"></script>
   <script src="js/services/personService.js"></script>
   <script src="js/services/doctorService.js"></script>
+  <script src="js/services/IDService.js"></script>
   <script src="js/controllers/JoinChat.js"></script>
   <script src="js/controllers/DoctorJoinChat.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="js/controllers/login.js"></script>
   <script src="js/controllers/ChatCtrl.js"></script>
+  <script src="js/controllers/CreateRoom.js"></script>
   <script src="js/controllers/PeopleListCtrl.js"></script>
   <script src="js/controllers/DoctorListCtrl.js"></script>
+  <script src="js/controllers/RoomListCtrl.js"></script>
 
 
   <base href="/">
+  
 
 </head>
 <body>
+	
+
+
 	<h1>Matt's Chat</h1>
 	
 	<div ng-controller="mainCtrl">{{myVar}}</div>

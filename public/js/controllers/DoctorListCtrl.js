@@ -1,18 +1,13 @@
 app.controller('DoctorListCtrl', ['$scope', '$log', 'socket', 'doctorService', 
 	function ($scope, $log, socket, doctorService) {
+		socket.emit('initialUpdate', {
+			id: "D"
+		});
+		socket.emit('getPeopleList', {});
 
 		$scope.doctor = doctorService.getDoctor();
-				
-		socket.emit('doctors-join-server', {
 
-			user: $scope.doctor.name,
-			qualification: $scope.doctor.qualification,
-			password: $scope.doctor.password,
-			doctors: "doctors"
-		});
-
-		socket.on("update-doctors", function(data) {
-
+		socket.on("updateDoctors", function(data) {
 			$scope.doctors = data.doctors;
 			$scope.docCount = data.count;
 			$scope.doctorsUsed = data.names;				

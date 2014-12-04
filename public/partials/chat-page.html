@@ -1,4 +1,8 @@
+	  <script>
+  		$("#errors").empty();
+		$("#errors").hide();
 
+		</script>
 <!--
     <div class="row" id="main-chat-screen">
       <div class="col-md-3">
@@ -82,6 +86,13 @@
   
     <div>
         <div class="chatWrap">
+			<div ng-controller="RoomListCtrl">
+				<ul>
+					<li ng-repeat="room in rooms">
+						<span>{{room.name}}</span>
+					</li>
+				</ul>			
+			</div>
 			<div ng-controller="PeopleListCtrl">
 				<ul>
 					{{person.name}}
@@ -106,5 +117,45 @@
         </div>
         <form ng-submit="sendMsg()">
             <input type="text" ng-model="chat.msg"/>
+            <p/>
+			<div class="btn-group">
+				<button type="button" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown" >
+					Actions <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#" name="createRoom" data-toggle="modal" data-target="#roomModal">Create room</a></li>
+					<li><a href="#" name="leave" id="leave" ng-click="leaveRoom()">Leave current room</a></li>
+				  <!--<li><a href="#" name="disconnect" id="disconnect">Disconnect from chat</a></li>-->
+				</ul>
+          </div>
         </form>
     </div>
+    
+  <!-- Modal start -->
+<!--
+	<div ng-controller="roomName">
+-->
+		<div class="modal fade" id="roomModal" tabindex="-1" role="dialog" aria-labelledby="createRoomLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="createRoomLabel">Create room</h4>
+					</div>
+					<form class="form-inline" id="createRoomForm" ng-controller="CreateRoom">
+						<div class="modal-body">
+							You can create a chat room here. Names have to be unique.
+							<input type="text" ng-model="NamingRoom.name" class="form-control input-lg"  placeholder="Room name" id="createRoomName">
+						</div>
+						<div class="modal-footer">
+							<p>{{NamingRoom.name}}</p>
+							<button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Close</button>
+							<button data-dismiss="modal" id="createRoomBtn" class="btn btn-success btn-lg" ng-click="createRoom(NamingRoom)">Create room</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+<!--
+	</div>
+-->

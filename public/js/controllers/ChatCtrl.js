@@ -1,13 +1,24 @@
-app.controller('ChatCtrl', ['$scope', '$log', 'socket', 'personService', 'doctorService',
-	function ($scope, $log, socket, personService, doctorService) {
-				
-		$scope.msgs = [];
-
-		$scope.person = personService.getPerson();
+app.controller('ChatCtrl', ['$scope', '$log', 'socket', 'personService', 'doctorService', 'IDService',
+	function ($scope, $log, socket, personService, doctorService, IDService) {
 		
-		$scope.doctor = doctorService.getDoctor();
+		$scope.msgs = [];		
+		$scope.ID = IDService.getID();
 
-		socket.on('send-msg', function(message) {
+		if ($scope.ID == "doctor") {
+			$scope.person = doctorService.getDoctor();			
+		} else if ($scope.ID == "person") {
+			$scope.person = personService.getPerson();
+		}
+
+		socket.on('sendMsg', function(message) {
+			$scope.msgs.push({
+				user: message.user,
+				text: message.text
+			});
+			$scope.$digest();
+		});
+		
+		socket.on('update', function(message) {
 			$scope.msgs.push({
 				user: message.user,
 				text: message.text
@@ -16,26 +27,22 @@ app.controller('ChatCtrl', ['$scope', '$log', 'socket', 'personService', 'doctor
 		});
 
 		$scope.sendMsg = function() {
-			var name;
-			if (typeof $scope.person !== undefined) {
-				name = $scope.person.name;
-			} else if (typeof $scope.doctor !== undefined) {
-				name = $scope.doctor.name;
-			} else {
-				return false;
-			}
 			
-			socket.emit('send-msg', {
-				user: name,
+			socket.emit('sendMsg', {
+				user: $scope.person.name,
 				message: $scope.chat.msg
 			});
 			//add the message to our model locally
 			$scope.msgs.push({
-				user: name,
+				user: $scope.person.name,
 				text: $scope.chat.msg
 			});
 			$scope.chat.msg = '';
 		};
-	
+
+		$scope.leaveRoom = function() {
+			socket.emit('leaveRoom', {});
+		};
+		
 
 	}]);
