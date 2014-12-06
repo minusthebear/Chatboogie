@@ -1,8 +1,14 @@
-app.controller('RoomListCtrl', ['$scope', '$log', 'socket', 
-	function ($scope, $log, socket) {
+app.controller('RoomListCtrl', ['$scope', '$log', '$location', 'socket', 
+	function ($scope, $log, $location, socket) {
+		
+		
 		socket.on("roomList", function(data) {
 			$scope.rooms = data.rooms;
 			$scope.count = data.count;			
 			$scope.$digest();
 		});
+
+		$scope.joinRoom = function(room) {
+			socket.emit("joinRoom", room.id);	
+		};
 	}]);
