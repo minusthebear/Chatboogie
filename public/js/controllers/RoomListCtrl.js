@@ -11,4 +11,8 @@ app.controller('RoomListCtrl', ['$scope', '$log', '$location', 'socket',
 		$scope.joinRoom = function(room) {
 			socket.emit("joinRoom", room.id);	
 		};
+		
+		$scope.leaveRoom = function(room) {
+			socket.emit("leaveRoom", room.id);
+		};
 	}]);

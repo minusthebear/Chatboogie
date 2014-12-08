@@ -12,11 +12,13 @@ app.controller('ChatCtrl', ['$scope', '$log', 'socket', 'personService', 'doctor
 		}
 
 		socket.on('sendMsg', function(message) {
+			$log.log("Socket received sendMsg");
 			$scope.msgs.push({
 				user: message.user,
 				text: message.text
 			});
 			$scope.$digest();
+			$log.log("This gets read");
 		});
 		
 		socket.on('update', function(message) {
@@ -24,7 +26,7 @@ app.controller('ChatCtrl', ['$scope', '$log', 'socket', 'personService', 'doctor
 				user: message.user,
 				text: message.text
 			});
-			$scope.$digest();
+			$scope.$digest();	
 		});
 
 		$scope.sendMsg = function() {
@@ -32,23 +34,16 @@ app.controller('ChatCtrl', ['$scope', '$log', 'socket', 'personService', 'doctor
 				user: $scope.person.name,
 				message: $scope.chat.msg
 			});
-			$scope.$digest();
+			$scope.chat.msg = '';
+			$log.log("Sending off message");
 		};
-		
-		//socket.on('successMsg', function(message) {
-			//$scope.msgs.push({
-				//user: message.user,
-				//text: message.text
-			//});
-			//$scope.$digest();	
-		//});
-		
+
 		socket.on('failMsg', function(message) {
 			$scope.msgs.push({
 				user: message.user,
 				text: message.text
 			});
-			$scope.$digest();				
+			$scope.$digest();	
 		});
 
 		$scope.leaveRoom = function() {

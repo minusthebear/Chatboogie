@@ -91,7 +91,7 @@
 					<li ng-repeat="room in rooms">
 						<span>{{room.name}}</span>
 						<button ng-attr-id="{{ 'joinBtn-' + room.name }}" class='joinRoomBtn btn btn-default btn-xs' ng-click="joinRoom(room)">Join</button>
-						<button ng-attr-id="{{ 'removeBtn-' + room.name }}" class='removeRoomBtn btn btn-default btn-xs'>Remove</button>
+						<button ng-attr-id="{{ 'removeBtn-' + room.name }}" class='removeRoomBtn btn btn-default btn-xs' ng-click="leaveRoon(room)">Remove</button>
 					</li>
 				</ul>			
 			</div>
