@@ -1,0 +1,59 @@
+<!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
+
+<!-- Inline CSS based on choices in "Settings" tab -->
+<style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;} input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched { background-color: #FA787E; }</style>
+
+<div id="form-wrapper">
+<!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+  <div class="bootstrap-iso">
+   <div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Enter a task here, Dr. {{info.lastName}}!
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Add Task
+                </li>
+            </ol>
+        </div>
+    </div>    
+    <div class="row">
+     <div class="col-md-6 col-sm-6 col-xs-12">
+      <form ng-controller="DoctorTaskFormController" ng-submit="submit(task)">
+       <div class="form-group ">
+        <label class="control-label requiredField" for="task heading">
+         Name of task
+         <span class="asteriskField">
+          *
+         </span>
+        </label>
+        <input class="form-control" id="task_heading" name="task_heading" type="text" ng-model="task.heading" required/>
+       </div>
+
+       
+       <div class="form-group ">
+        <label class="control-label requiredField" for="institutions">
+         Please write details of your task here
+         <span class="asteriskField">
+          *
+         </span>
+        </label>
+        <textarea class="form-control" cols="40" id="task_message" name="task_message" rows="10" ng-model="task.info" required></textarea>
+       </div>
+       <div class="form-group">
+        <div>
+         <button class="btn btn-primary " name="submit" type="submit">
+          Submit
+         </button>
+        </div>
+       </div>
+      </form>
+     </div>
+    </div>
+   </div>
+
+  </div>
+</div>

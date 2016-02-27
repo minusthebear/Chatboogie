@@ -1,0 +1,33 @@
+<div ng-controller="DoctorGetTasksController">
+    <div id="page-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+              <h1 class="page-header">
+                  Your memos
+              </h1>
+              <ol class="breadcrumb">
+                  <li class="active">
+                      <i class="fa fa-dashboard"></i>I hope you are having a great day!
+                  </li>
+              </ol>
+          </div>
+        </div>
+        <div class="row" >
+          <div class="col-lg-12">
+            <div ng-repeat="(key, value) in tasks">
+              <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{value.title}} - {{value.date}}, {{value.clock}}</h3>
+                </div>
+                <div class="panel-body">
+                  <p>{{value.message}}</p>
+                </div>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>

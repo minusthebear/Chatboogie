@@ -3,135 +3,87 @@
 		$("#errors").hide();
 
 		</script>
-<!--
-    <div class="row" id="main-chat-screen">
-      <div class="col-md-3">
--->
-          <!--<ul>-->
-              <!--<li ng-repeat="room in rooms">-->
-                  <!--<span>{{room.name}}</span>-->
-              <!--</li>-->
-          <!--</ul>-->
-          
-          <!--<ul>-->
-              <!--<li ng-repeat="person in people">-->
-                  <!--<span>{{room.name}}</span>-->
-              <!--</li>-->
-          <!--</ul>-->
-          
-          <!--<ul>-->
-              <!--<li ng-repeat="dr in doctors">-->
-                  <!--<span>{{room.name}}</span>-->
-              <!--</li>-->
-          <!--</ul>-->
-          
-<!--
-        <ul id="rooms" class="list-group">Rooms</ul>
-        <ul id="people" class="list-group">{{person}} - {{symptoms}}</ul>
-        <ul id="doctors" class="list-group">{{doctor}} - {{qualification}}</ul>
-      </div>
-      <div class="col-md-6">
-        <div id="conversation">
-          <ul id="msgs" class="list-unstyled"></ul>
-        </div>
-        <form id="chatForm" class="form-inline">
-          <div class="form-group">
-            <input type="text" class="form-control input-lg" placeholder="Your message" id="msg">
-          </div>
-          <input type="submit" name="send" id="send" value="Send" class="btn btn-success btn-lg">
-          <input type="button" name="start_button" id="start_button" value="Record" onclick="startButton(event)" class="btn btn-info btn-lg">
-          <div class="btn-group">
-            <button type="button" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown" >
-              Actions <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#" name="createRoom" data-toggle="modal" data-target="#roomModal">Create room</a></li>
-              <li><a href="#" name="leave" id="leave">Leave current room</a></li>
+	<div class="chatWrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="panel panel-primary">
+							<div class="panel-heading">
+								Rooms
+							</div>
+						<div ng-controller="RoomListCtrl">
+							<div class="panel-body">
+								<ul>
+									<li ng-repeat="room in rooms">
+										<span>{{room.name}}</span>
+										<button ng-attr-id="{{ 'joinBtn-' + room.name }}" class='joinRoomBtn btn btn-default btn-xs' ng-click="joinRoom(room)">Join</button>
+										<button ng-attr-id="{{ 'removeBtn-' + room.name }}" class='removeRoomBtn btn btn-default btn-xs' ng-click="leaveRoon(room)">Remove</button>
+									</li>
+								</ul>			
+							</div>
+						</div>
+						<div class="panel-heading">
+							People
+						</div>
+						<div ng-controller="PeopleListCtrl">
+							<div>
+								<ul>
+									{{ind.user}}
+									<li ng-repeat="peeps in people" ng-show="peeps.user!=ind.user">
+										<span>{{peeps.user}}</span>
+									</li>
+								</ul>			
+							</div>
+						</div>
+						<div class="panel-heading">
+							Doctors
+						</div>
+						<div ng-controller="DoctorListCtrl">
+							<div>
+								<ul>
+									{{ind.user}}
+									<li ng-repeat="doc in doctors" ng-show="doc.user!=ind.user">
+										<span>{{doc.user}}</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
 
-              <!--<li><a href="#" name="disconnect" id="disconnect">Disconnect from chat</a></li>-->
-<!--
-            </ul>
-          </div>
-        </form>
-      </div>
-       <div class="col-md-2">
-        <ul class="list-unstyled" id="updates"></ul>
-      </div>
-    </div>
-  </div>
--->
+				</div>
 
-  <!-- Modal start -->
-<!--
-  <div class="modal fade" id="roomModal" tabindex="-1" role="dialog" aria-labelledby="createRoomLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" id="createRoomLabel">Create room</h4>
-        </div>
-        <div class="modal-body">
-          You can create a chat room here. Names have to be unique.
-          <form class="form-inline" id="createRoomForm"><input type="text" class="form-control input-lg"  placeholder="Room name" id="createRoomName"></form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Close</button>
-          <button data-dismiss="modal" id="createRoomBtn" class="btn btn-success btn-lg">Create room</button>
-        </div>
-      </div>
-    </div>
-  </div>
--->
+				<div class="col-lg-8">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							Chat
+						</div>
+						<div>			
+							<div>
+								<ul>
+									<li ng-repeat="msg in msgs track by $index">{{msg.user}}: {{msg.text}}</li>
+								</ul>
+							</div>
+						</div>
 
-  
-    <div>
-        <div class="chatWrap">
-			<div ng-controller="RoomListCtrl">
-				<ul>
-					<li ng-repeat="room in rooms">
-						<span>{{room.name}}</span>
-						<button ng-attr-id="{{ 'joinBtn-' + room.name }}" class='joinRoomBtn btn btn-default btn-xs' ng-click="joinRoom(room)">Join</button>
-						<button ng-attr-id="{{ 'removeBtn-' + room.name }}" class='removeRoomBtn btn btn-default btn-xs' ng-click="leaveRoon(room)">Remove</button>
-					</li>
-				</ul>			
+						<form ng-submit="sendMsg()">
+							<input type="text" ng-model="chat.msg"/>
+							<p/>
+							<div class="btn-group">
+								<button type="button" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown" >
+									Actions <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#" name="createRoom" data-toggle="modal" data-target="#roomModal">Create room</a></li>
+									<li><a href="#" name="exitRoom" data-toggle="modal" data-target="#exitModal">Leave current room</a></li>
+								    <li><a href="#" name="disconnect" data-toggle="modal" data-target="#disconnectModal">Disconnect from server</a></li>
+								</ul>
+						  </div>
+						</form>
+					</div>
+				</div>
 			</div>
-			<div ng-controller="PeopleListCtrl">
-				<ul>
-					{{person.name}}
-					<li ng-repeat="peeps in people" ng-show="peeps.user!=person.name">
-						<span>{{peeps.user}}</span>
-					</li>
-				</ul>			
-			</div>
-			<div ng-controller="DoctorListCtrl">
-				<ul>
-					{{doctor.name}}
-					<li ng-repeat="doc in doctors" ng-show="doc.user!=doctor.name">
-						<span>{{doc.user}}</span>
-					</li>
-				</ul>
-			</div>			
-			<div>
-				<ul>
-					<li ng-repeat="msg in msgs track by $index">{{msg.user}}: {{msg.text}}</li>
-				</ul>
-			</div>
-        </div>
-        <form ng-submit="sendMsg()">
-            <input type="text" ng-model="chat.msg"/>
-            <p/>
-			<div class="btn-group">
-				<button type="button" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown" >
-					Actions <span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="#" name="createRoom" data-toggle="modal" data-target="#roomModal">Create room</a></li>
-					<li><a href="#" name="leave" id="leave" ng-click="leaveRoom()">Leave current room</a></li>
-				  <!--<li><a href="#" name="disconnect" id="disconnect">Disconnect from chat</a></li>-->
-				</ul>
-          </div>
-        </form>
-    </div>
+		</div>
+	</div>
     
   <!-- Modal start -->
 <!--
@@ -155,6 +107,42 @@
 							<button data-dismiss="modal" id="createRoomBtn" class="btn btn-success btn-lg" ng-click="createRoom(NamingRoom)">Create room</button>
 						</div>
 					</form>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="exitModal" tabindex="-1" role="dialog" aria-labelledby="exitRoomLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="exitRoomLabel">Leave room</h4>
+					</div>
+					<div class="modal-body">
+						<span>Are you sure you wish to leave this room?</span>
+						<form class="form-inline" id="exitRoomForm" ng-controller="ExitRoom">
+							<button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Close</button>
+							<button data-dismiss="modal" id="leaveRoomBtn" class="btn btn-success btn-lg" ng-click="exitRoom()">Leave room</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="disconnectModal" tabindex="-1" role="dialog" aria-labelledby="disconnectLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="disconnectLabel">Leave room</h4>
+					</div>
+					<div class="modal-body">
+						<span>Are you sure you wish to disconnect?</span>
+						<form class="form-inline" id="disconnectForm" ng-controller="ExitRoom">
+							<button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Close</button>
+							<button data-dismiss="modal" id="disconnectBtn" class="btn btn-success btn-lg" ng-click="disconnect()">Disconnect</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>

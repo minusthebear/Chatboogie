@@ -1,0 +1,178 @@
+<!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
+
+<!-- Inline CSS based on choices in "Settings" tab -->
+<style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
+
+<!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+<div class="bootstrap-iso">
+ <div class="container-fluid">
+  <div class="row">
+   <div class="col-md-6 col-sm-6 col-xs-12">
+    <h1>Matt's Chat - users sign up!!!</h1>
+    <form ng-controller="UserFormController" ng-submit="submit(user)">
+     <div class="form-group ">
+      <label class="control-label requiredField" for="name">
+       Name
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <input class="form-control" id="name" name="name" type="text" ng-model="user.name" required />
+     </div>
+     <div class="form-group ">
+      <label class="control-label " for="email">
+       Email
+      </label>
+      <input class="form-control" id="email" name="email" type="text" ng-model="user.email" />
+
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="select" required>
+       Select a Choice
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <select class="select form-control" id="select" name="select" ng-model="user.field">
+       <option value="allergy">
+        Allergy &amp; Immunology
+       </option>
+       <option value="cardio">
+        Cardiology
+       </option>
+       <option value="childPsych">
+        Child psychiatry
+       </option>
+       <option value="derm">
+        Dermatology
+       </option>
+       <option value="endo">
+        Endocrinology
+       </option>
+       <option value="gastro">
+        Gastroenterology
+       </option>
+       <option value="geriatrics">
+        Geriatrics
+       </option>
+       <option value="obgyn">
+        OB/GYN
+       </option>
+       <option value="infect">
+        Infectious diseases
+       </option>
+       <option value="neuro">
+        Neurology
+       </option>
+       <option value="opto">
+        Optometry
+       </option>
+       <option value="ortho">
+        Orthopaedics
+       </option>
+       <option value="pediatrics">
+        Pediatrics
+       </option>
+       <option value="physRehab">
+        Physical rehabilitation/sports medicine
+       </option>
+       <option value="radio">
+        Radiology
+       </option>
+       <option value="uro">
+        Urology
+       </option>
+       <option value="other">
+        Other
+       </option>
+      </select>
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="subject">
+       What is the issue?
+       <span class="asteriskField">
+       </span>
+      </label>
+      <input class="form-control" id="subject" name="subject" type="text" ng-model="user.issue" />
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField">
+       Do you have insurance?
+       <span class="asteriskField">
+       </span>
+      </label>
+      <div class="">
+       <div class="radio">
+        <label class="radio">
+         <input name="radio" type="radio" value="Yes" ng-model="user.insurance"/>
+         Yes
+        </label>
+       </div>
+       <div class="radio">
+        <label class="radio">
+         <input name="radio" type="radio" value="No" ng-model="user.insurance"/>
+         No
+        </label>
+       </div>
+      </div>
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField">
+       Have you seen a doctor about your current ailment?
+       <span class="asteriskField">
+       </span>
+      </label>
+      <div class="">
+       <div class="radio">
+        <label class="radio">
+         <input name="radio1" type="radio" value="Yes" ng-model="user.seenDoctor"/>
+         Yes
+        </label>
+       </div>
+       <div class="radio">
+        <label class="radio">
+         <input name="radio1" type="radio" value="No" ng-model="user.seenDoctor"/>
+         No
+        </label>
+       </div>
+      </div>
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="message">
+       Describe the problem or symptoms in detail.
+       <span class="asteriskField">
+       </span>
+      </label>
+      <textarea class="form-control" cols="40" id="message" name="message" rows="10" ng-model="user.description"></textarea>
+     </div>
+     <div class="form-group ">
+      <label class="control-label ">
+       By default, all information you fill out on this form is deleted within 30 minutes. It is saved in case of disconnection. Will you grant permission for the clinician to save your data or the chat if both parties are in agreement?
+      </label>
+      <div class=" ">
+       <div class="checkbox">
+        <label class="checkbox">
+         <input name="checkbox" type="checkbox" value="I will allow the clinician to save my data" ng-model="user.permission"/>
+         I will allow the clinician to save my data
+        </label>
+       </div>
+       <span class="help-block" id="hint_checkbox">
+        Click the checkbox if you give the clinician permission to save your data.
+       </span>
+      </div>
+     </div>
+     <div class="form-group">
+      <div>
+       <button class="btn btn-primary " name="submit" type="submit">
+        Submit
+       </button>
+        <button type="button" class="btn btn-warning" ng-click="disconnect()">Disconnect</button>   
+      </div>        
+      </div>
+     </div>
+    </form>
+   </div>
+  </div>
+ </div>
+</div>

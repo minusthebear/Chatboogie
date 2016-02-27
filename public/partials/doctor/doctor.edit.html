@@ -1,0 +1,215 @@
+<!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
+
+<!-- Inline CSS based on choices in "Settings" tab -->
+<style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
+
+<!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+<div id="form-wrapper">
+  <div class="bootstrap-iso">
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-lg-12">
+          <h1 class="page-header">
+              Please edit your information!
+          </h1>
+          <ol class="breadcrumb">
+              <li class="active">
+                  <i class="fa fa-dashboard"></i> Edit Information
+              </li>
+          </ol>
+      </div>
+    </div>
+    <div class="row">
+     <div class="col-md-6 col-sm-6 col-xs-12">
+      <form ng-controller="DoctorEditController" ng-submit="submit(doc)">
+       <div class="form-group ">
+        <label class="control-label requiredField" for="last name">
+         Last Name
+         <span class="asteriskField">
+          *
+         </span>
+        </label>
+        <input class="form-control" id="last_name" name="last_name" type="text" placeholder="{{info.lastName}}" ng-model="doc.lastName" />
+       </div>
+       <div class="form-group ">
+        <label class="control-label requiredField" for="first name">
+         First Name
+         <span class="asteriskField">
+          *
+         </span>
+        </label>
+        <input class="form-control" id="first_name" name="first_name" type="text" placeholder="{{info.firstName}}" ng-model="doc.firstName" />
+       </div>
+       <div class="form-group ">
+        <label class="control-label" for="first name">
+         Middle Name
+        </label>
+        <input class="form-control" id="middle_name" name="middle_name" type="text" placeholder="{{info.middleName}}" ng-model="doc.middleName" />
+       </div>         
+       <div class="form-group ">
+        <label class="control-label requiredField" for="email">
+         Email
+         <span class="asteriskField">
+          *
+         </span>
+        </label>
+        <input class="form-control" id="email" name="email" type="email" placeholder="{{info.email}}" ng-model="doc.email" />
+       </div>
+
+       <div class=" ">
+         <div class="form-group">
+          <label class="requiredField">
+           Fields of expertise
+           <span class="asteriskField">
+            *
+           </span>
+          </label>
+          <div class="checkbox">
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="Allergy &amp; Immunology" ng-model="doc.fields['allergy']" ng-init="doc.fields['allergy'] = checkIfChecked('allergy')"/>          
+              Allergy &amp; Immunology
+            </label>
+          </div>
+          <div class="checkbox">          
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="Cardiology" ng-model="doc.fields['cardio']" ng-init="doc.fields['cardio'] = checkIfChecked('cardio')"/>          
+              Cardiology
+            </label>
+          </div>
+
+          <div class="checkbox">
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="Child psychiatry" ng-model="doc.fields['childPsych']" ng-init="doc.fields['childPsych'] = checkIfChecked('childPsych')"/>          
+              Child psychiatry
+            </label>
+          </div>
+          <div class="checkbox">          
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="Dermatology" ng-model="doc.fields['derm']" ng-init="doc.fields['derm'] = checkIfChecked('derm')"/>          
+              Dermatology
+            </label>
+          </div>
+
+          <div class="checkbox">
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="Endocrinology" ng-model="doc.fields['endo']" ng-init="doc.fields['endo'] = checkIfChecked('endo')"/>          
+              Endocrinology
+            </label>
+          </div>
+          <div class="checkbox">          
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="Gastroenterology" ng-model="doc.fields['gastro']" ng-init="doc.fields['gastro'] = checkIfChecked('gastro')"/>          
+              Gastroenterology
+            </label>
+          </div>
+
+          <div class="checkbox">
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="Geriatrics" ng-model="doc.fields['geriatrics']" ng-init="doc.fields['geriatrics'] = checkIfChecked('geriatrics')"/>          
+              Geriatrics
+            </label>
+          </div>
+          <div class="checkbox">          
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="OB/GYN" ng-model="doc.fields['obgyn']" ng-init="doc.fields['obgyn'] = checkIfChecked('obgyn')"/>          
+              OB/GYN
+            </label>
+          </div>        
+
+          <div class="checkbox">
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="Infectious diseases" ng-model="doc.fields['infect']" ng-init="doc.fields['infect'] = checkIfChecked('infect')"/>          
+              Infectious diseases
+            </label>
+          </div>
+
+          <div class="checkbox">
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="Neurology" ng-model="doc.fields['neuro']" ng-init="doc.fields['neuro'] = checkIfChecked('neuro')"/>          
+              Neurology
+            </label>
+          </div>
+          <div class="checkbox">          
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="Optometry" ng-model="doc.fields['opto']" ng-init="doc.fields['opto'] = checkIfChecked('opto')"/>          
+              Optometry
+            </label>
+          </div>                
+
+          <div class="checkbox">
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="Orthopaedics" ng-model="doc.fields['ortho']" ng-init="doc.fields['ortho'] = checkIfChecked('ortho')"/>          
+              Orthopaedics
+            </label>
+          </div>
+          <div class="checkbox">          
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="Pediatrics" ng-model="doc.fields['pediatrics']" ng-init="doc.fields['pediatrics'] = checkIfChecked('pediatrics')"/>          
+              Pediatrics
+            </label>
+          </div>
+
+          <div class="checkbox">
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="Physical rehabilitation/sports medicine" ng-model="doc.fields['physRehab']" ng-init="doc.fields['physRehab'] = checkIfChecked('physRehab')"/>          
+              Physical rehabilitation/sports medicine
+            </label>
+          </div>
+          <div class="checkbox">          
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="Radiology" ng-model="doc.fields['radio']" ng-init="doc.fields['radio'] = checkIfChecked('radio')"/>          
+              Radiology
+            </label>
+          </div>  
+
+          <div class="checkbox">
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="Urology" ng-model="doc.fields['uro']" ng-init="doc.fields['uro'] = checkIfChecked('uro')"/>          
+              Urology
+            </label>
+          </div>
+          <div class="checkbox">          
+            <label class="checkbox">
+              <input name="checkbox" type="checkbox" value="Other" ng-model="doc.fields['other']" ng-init="doc.fields['other'] = checkIfChecked('other')"/>          
+              Other
+            </label>
+          </div>  
+
+          
+         </div>
+       </div>
+       <div class="form-group ">
+        <label class="control-label requiredField" for="university">
+         University where you were certified as an M.D.
+         <span class="asteriskField">
+          *
+         </span>
+        </label>
+        <input class="form-control" id="university" name="subject" type="text" placeholder="{{info.university}}" ng-model="doc.university" />
+       </div>
+       
+       <div class="form-group ">
+        <label class="control-label requiredField" for="institutions">
+         Please write all hospitals, clinics and organizations with whom you work or volunteer. All work experience you fell necessary is appreciated.
+         <span class="asteriskField">
+          *
+         </span>
+        </label>
+        <textarea class="form-control" cols="40" id="message" name="message" rows="10" placeholder="{{info.work}}" ng-model="doc.work"></textarea>
+       </div>
+       <div class="form-group">
+        <div>
+         <button class="btn btn-primary " name="submit" type="submit" ng.disabled="doc.$invalid ">
+          Submit
+         </button>
+        </div>
+       </div>
+       <p>{{doc.$pristine}}</p>
+       <p>{{doc.$dirty}}</p>
+      </form>
+     </div>
+    </div>
+   </div>
+  </div>
+</div>

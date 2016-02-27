@@ -1,42 +1,109 @@
 var express = require('express') 
   , app = express()
+  , sess = require('express-session')
   , http = require('http')
   , server = http.createServer(app)
   , io = require('socket.io').listen(server)
   , mongoose = require('mongoose')
   , passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy;
+  , LocalStrategy = require('passport-local').Strategy
+  , redis = require('redis')
+  , RedisClient = require('./server/redis')
+  , config = require('./server/config')
+  , cookieParser = require('cookie-parser')
+  , sessionService = require('./server/redis/session-service')
+  , cookie = require('cookie');
 
-require('./server/express')(app);
-var Room = require('./routes/Room');
-require('./routes/Socket')(io, Room);
+// Redis and Socket-related connections
+var redisStore = require('connect-redis')(sess);
+var RedisStore = new redisStore(RedisClient);
+var Room = require('./server/models/Room');
+var SocketFunc = require('./server/socket/SocketFunc');
+// 	,	RedisSocket = require('./routes/RedisSocket')
+
+sessionService.initializeRedis(RedisClient, RedisStore);
+
+function parseCookies (request) {
+    var list = {},
+        rc = request.headers.cookie;
+
+    rc && rc.split(';').forEach(function( cookie ) {
+        var parts = cookie.split('=');
+        list[parts.shift().trim()] = decodeURI(parts.join('='));
+    });
+    console.log(list);
+
+    return list;
+}
+
+SocketFunc(io, Room);
+var socketConnection = require('./server/socket/Socket');
+socketConnection(io, Room, SocketFunc);
+require('./server/express')(app, RedisStore);
+require('./routes/index')(app, RedisClient, io);
 
 
+io.use(function (socket, next) {
+	// Working on this now
+	// I tried cookieParser.signedCookie(parsedCookie['connect.sid'], config.secret) like one a Redis book
+	// of mine said to try, but it kept breaking.
+	// I'm exploring using a function I found on StackOverflow, parseCookies(), to get the cookie information
+	// and then use that for authentication. If you know a better way, I'd love to know.
+  var parseCookie = cookieParser(config.secret);
+
+  var handshake = socket.request;
+	var parsedCookie = handshake.headers.cookie;
+	//console.log(parsedCookie);
+	var Cookies = parseCookies(socket.request);
+
+  console.log("parsedCookie");
+  console.log(parsedCookie);
+  console.log("Cookies");
+  console.log(Cookies);
+	var req = {
+		"headers": {
+			"cookie": parsedCookie
+		}
+	};
+	
+	//console.log("parseCookie:");
+
+	var func = cookieParser;
+
+	cookieParser(config.secret)(req, null, function(){});
+
+	var name = req.cookies.user;
 
 
-
-
-// Run with nodemon app.js
-// It should be in development mode. If not, type in export NODE_ENV=development
-// To run in production mode, type in export NODE_ENV=production then run nodemon server.js
-// Database name is doctorchat
-
+  parseCookie(handshake, null, function (err, data) {
+      sessionService.get(handshake, function (err, session) {
+          //console.log(session);
+          if (err)
+              next(new Error(err.message));
+          if (!session || (session == null || undefined || false))
+              next(new Error("Not authorized"));
+              
+          if (!!session.isAuthenticated) {
+            console.log("SESSION IS AUTHENTICATED!!!");
+    			} else {
+    				//console.log("No session to report");
+    			}
+		
+          handshake.session = session;
+//      //console.log(handshake);
+//			//console.log(session);
+//			//console.log(handshake.headers.cookie);
 /*
- *	You will need to start a new database. Follow these instructions.
- *  Open a terminal, find the mongo folder and in the command prompt enter " mongod ". Mongod should open. 
- *  Open a new terminal and type in mongo. Type in "use doctors", then "db.users.find()"
- *  If there is a doctorchat database, enter db.users.remove() into the command prompt.
- *  Shut down Mongo. 
- *  Save this server.js file. 
- *  Restart mongod
- *  Run nodemon server.js, then after it gets up and running shut it down.
- *  Restart Mongo. Type in "use doctorchat" and "db.users.find()". You should see the new database there.
- * 
- * 
- * */
+* 			Find out a way to have this cookie be unique to this site.
+* 			Currently this cookie is also sharing the cookie with IOI chat
+* 			Make this cookie unique.
+* 
+*/
+          next();
+      });
+  });
+});
 
-
-require('./server/routes')(app);
 
 
 /// catch 404 and forward to error handler
@@ -70,7 +137,8 @@ app.use(function(err, req, res, next) {
     });
 });
 
-server.listen(3000);
+// var SocketServer = server.listen(config.port);
 
+server.listen(config.port);
 
 module.exports = app;

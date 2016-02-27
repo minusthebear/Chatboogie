@@ -1,15 +1,11 @@
-var path = require('path');
-var rootPath = path.normalize(__dirname + '/../');
+var config = {
+	port: 3000,
+	secret: 'WednesdayNightMeatBandits',
+	cookieKey: 'connect.sid',
+	redisPort: 6379,
+	redisHost: 'localhost',
+	routes: {},
+	host: 'http://localhost:3000'
+};
 
-module.exports = {
-	development: {
-		db: 'mongodb://localhost/doctors',
-		rootPath: rootPath,
-		port: process.env.PORT || 3000
-	},
-	production: {
-		rootPath: rootPath,
-		db: 'mongodb://mattdoescomputers:SeaweedIsDelicious@ds061370.mongolab.com:61370/doctors',
-		port: process.env.PORT || 80
-	}
-}
+module.exports = config;

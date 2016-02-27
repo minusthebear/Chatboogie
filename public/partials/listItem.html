@@ -1,0 +1,15 @@
+	<ul>
+		<li ng-repeat="todo in todos">
+			<div class="col-md-12" ng-attr-id="{{todo.id}}">
+				<input type="text" class="col-md-8" placeholder="{{todo.name}}" ng-model="text" />
+				<div class="col-md-2">
+					<button ng-attr-id="{{ 'updateTask-' + todo.id }}" class='btn btn-default btn-xs' ng-click="update(todo, text); $event.preventDefault();">Update</button>
+				</div>
+				<div class="col-md-1">
+					<button ng-attr-id="{{ 'finishTask-' + todo.id }}" class='btn btn-default btn-xs' ng-click="finish(todo.id); $event.preventDefault();">Finished</button>
+				</div>
+				<br/>
+				<br/>
+			</div>
+		</li>
+	</ul>

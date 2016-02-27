@@ -1,46 +1,109 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en">
+
 <head>
-	
-  <title>Chat 3.0</title>
-  <link rel="stylesheet" href="css/chat.css"/> 
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Matt's Chat - Home Page</title>
+
+    <!-- Bootstrap Core CSS -->
   <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.css">
-
+  <link rel="stylesheet" type="text/css" href="components/one-page-wonder.css">
   <script src="components/jquery/dist/jquery.min.js" ></script>
+ 
   <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="components/angular/angular.min.js"></script>
-  <script src="components/angular-resource/angular-resource.js"></script> 
-  <script src="components/angular-route/angular-route.js"></script>  
-  <script src="js/app.js"></script>
-  <script src="js/services/personService.js"></script>
-  <script src="js/services/doctorService.js"></script>
-  <script src="js/services/IDService.js"></script>
-  <script src="js/controllers/JoinChat.js"></script>
-  <script src="js/controllers/DoctorJoinChat.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="js/controllers/login.js"></script>
-  <script src="js/controllers/ChatCtrl.js"></script>
-  <script src="js/controllers/CreateRoom.js"></script>
-  <script src="js/controllers/PeopleListCtrl.js"></script>
-  <script src="js/controllers/DoctorListCtrl.js"></script>
-  <script src="js/controllers/RoomListCtrl.js"></script>
 
 
-  <base href="/">
-  
-
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #buttonCustom {
+            float: none;
+            margin-left:auto;
+            margin-right:auto;
+        }
+    </style>
 </head>
+
 <body>
-	
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Matt's Chat</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/frontPage">Users</a>
+                    </li>
+                    <li>
+                        <a href="/frontPageDoctor">Doctors</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Full Width Image Header -->
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- First Featurette -->
 
 
-	<h1>Matt's Chat</h1>
-	
-	<div ng-controller="mainCtrl">{{myVar}}</div>
-	
-	<ng-view></ng-view>
-	
 
+        <div class="featurette" id="about">
+            <h2 class="featurette-heading">Matt's Chat
+            </h2>
+            <p class="lead">The goal of this application is to show my progress and burgeoning skills as a programmer. The application is a two-tiered chat application, one where privileged users ("doctors") and non-privileged users ("users") can chat with one another.</p>
+            <p class="lead">This application uses the MEAN Stack framework (MongoDB, Express, Angular.JS, Node.JS). I use Socket.IO for real-time bidirectional communication. I use Redis as the data structure server.</p>
+            <p class="lead">There are two options on this page: you can either register as a temporary "user" and your information is erased in a half-hour, or you could register as a "doctor" and have your information stored.  </p>
+            <p class="lead">Users fill out a form and are then connected to a chat room to await a doctor for a chat.</p>
+            <p class="lead">Doctors can chat with users or other doctors. Doctors can only chat with users who check one of the doctor's fields of expertise. Doctors can also post "tasks" for themselves which are dated and stored by Redis. Users can choose whether or not their chats are archived by Redis for their doctor to access at a later time.</p>
+            <p class="lead">Please explore the application!</p>
+        </div>
+
+       <div class="row">
+            <div class="col-lg-6" id="buttonCustom">
+                <a href="/frontPage" class="btn btn-primary btn-lg pull-left" role="button">Register as a User</s>
+                <a href="/registerDoctor" class="btn btn-success btn-lg pull-right" role="button">Register as a Doctor</a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright 2016</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
 
 </body>
+
 </html>

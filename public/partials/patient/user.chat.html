@@ -1,0 +1,44 @@
+<style>
+	#ChatWrapper {
+		padding-top:50px;
+	}
+	#TextInfo{
+		padding-top:10px;
+		padding-bottom:5px;
+		padding-left:10px;
+	}
+	ul {
+		list-style-type: none;
+	}
+</style>
+
+<div id="ChatWrapper" ng-controller="ChatCtrl">
+  <div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1>Welcome to the chat room</h1>
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					Matt's Chat - chat room
+				</div>
+				<div>			
+					<div>
+						<strong><p id="TextInfo">
+							Please wait for a doctor to join, then type your message and hit enter.
+						</p></strong>
+						<ul>
+							<li ng-repeat="msg in msgs track by $index">
+								{{msg.name}}: {{msg.text}}</li>
+						</ul>
+					</div>
+				</div>
+
+				<form ng-submit="sendMsg()">
+					<input type="text" ng-model="chat.msg"/>
+					<p/>
+				</form>
+			</div>
+		</div>
+	</div>
+  </div>
+</div>

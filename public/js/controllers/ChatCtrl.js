@@ -1,54 +1,107 @@
-app.controller('ChatCtrl', ['$scope', '$log', 'socket', 'personService', 'doctorService', 'IDService',
-	function ($scope, $log, socket, personService, doctorService, IDService) {
+app.controller('ChatCtrl', ['$scope', '$state', 'socket', '$store', '$timeout', 'UserFactory',
+	function ($scope, $state, socket, $store, $timeout, UserFactory) {
+			console.log("Testing");
 
-		
-		$scope.msgs = [];		
-		$scope.ID = IDService.getID();
+			var data = UserFactory.getInfo();			
+			socket.emit('peopleJoinServer', data);
 
-		if ($scope.ID == "doctor") {
-			$scope.person = doctorService.getDoctor();			
-		} else if ($scope.ID == "person") {
-			$scope.person = personService.getPerson();
-		}
+			$scope.msgs = [];
 
-		socket.on('sendMsg', function(message) {
-			$log.log("Socket received sendMsg");
-			$scope.msgs.push({
-				user: message.user,
-				text: message.text
+			$scope.username = null;
+			$scope.room = null;
+			$scope.socketID = null;	
+
+			socket.on('comeJoinRoom', function(x){
+				console.log(x);
+				socket.emit('joinRoom', x);
 			});
-			$scope.$digest();
-			$log.log("This gets read");
+
+			socket.on('individual', function(x){
+				console.log(x);
+				$scope.username = x.name;
+				$scope.room = x.room;
+				$scope.socketID = x.socketID;
+				UserFactory.setName($scope.username);
+				UserFactory.setRoom($scope.room);
+			});
+
+
+			socket.on('sendMsg', function(message) {
+				console.log("Socket received sendMsg");
+				$scope.msgs.push({
+					id: message.id,
+					user: message.user,
+					name: message.name,
+					text: message.text,
+					room: message.room
+				});
+				console.log("This gets read");
+			});
+			
+			socket.on('update', function(message) {
+				console.log(message);
+				$scope.msgs.push({
+					id: message.id,
+					user: message.user,
+					name: message.name,
+					text: message.text,
+					room: message.room
+				});
+			});
+
+			socket.on('commenceExit', function(message) {
+				console.log("EXIT");
+				$scope.msgs.push({
+					id: message.id,
+					sock: message.sock,
+					user: message.user,
+					name: message.name,				
+					text: message.text,
+					room: message.room
+				});
+				$timeout(function(){
+					console.log($scope.username);
+					$state.go('user');
+				}, 3000);
+			});		
+
+			$scope.sendMsg = function() {
+				socket.emit('sendMsg', {
+					id: $scope.socketID,
+					user: $scope.username,
+					name: $scope.username,
+					text: $scope.chat.msg,
+					type: "user",
+					room: $scope.room
+				});
+				$scope.chat.msg = '';
+				console.log("Sending off message");
+			};
+
+			socket.on('failMsg', function(message) {
+				$scope.msgs.push({
+					user: message.user,
+					text: message.text
+				});
+			});
+
+			$scope.leaveRoom = function() {
+				socket.emit('leaveRoom', {});
+			};
+			
+			socket.on('testing', function(x){
+				console.log(x);
+			});
+
+		$scope.$on('$destroy', function (event) {
+		    socket.removeListener('sendMsg');
+		    socket.removeListener('createRoom');
+		    socket.removeListener('leaveRoom');
+		    socket.removeListener('enterRoom');
+		    socket.removeListener('joinRoom');
+		    socket.removeListener('individual');
+		    socket.removeListener('update');
+		    socket.removeListener('commenceExit');
+		    socket.removeListener('comeJoinRoom');		    
 		});
-		
-		socket.on('update', function(message) {
-			$scope.msgs.push({
-				user: message.user,
-				text: message.text
-			});
-			$scope.$digest();	
-		});
-
-		$scope.sendMsg = function() {
-			socket.emit('sendMsg', {
-				user: $scope.person.name,
-				message: $scope.chat.msg
-			});
-			$scope.chat.msg = '';
-			$log.log("Sending off message");
-		};
-
-		socket.on('failMsg', function(message) {
-			$scope.msgs.push({
-				user: message.user,
-				text: message.text
-			});
-			$scope.$digest();	
-		});
-
-		$scope.leaveRoom = function() {
-			socket.emit('leaveRoom', {});
-		};
-		
-
 	}]);

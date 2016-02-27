@@ -1,0 +1,16 @@
+<div ng-init="init()">
+	<h2>New Todo List</h2>
+	<form action="/save", method="post" ng-submit="saveTodo(todoInput); $event.preventDefault();">
+		<p>Enter a new todo item
+			<input type="text", id="description" placeholder="new todo", name="todo-text" ng-model="todoInput.text">
+		</p>
+		<p>
+			<input type="submit", value="Save">
+		</p>
+	</form>
+
+	<calendar />
+
+	<list-item />
+
+</div>

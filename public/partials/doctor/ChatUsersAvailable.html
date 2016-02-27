@@ -1,0 +1,38 @@
+<div ng-controller="ChatUsersAvailable">
+
+	 <div class="col-lg-6 col-md-6">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="media">
+                            <span class="pull-left">
+                               <!-- <img class="media-object" src="http://placehold.it/50x50" alt=""> -->
+                            </span>
+                            <div class="media-body">
+                                <h4 class="media-heading"><strong>Users available</strong>
+                                </h4>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="panel-footer">
+                    <ul>
+                      <div ng-if="!usersAvailable">
+                      	<li>
+					  		<span><p>No users logged in</p></span>
+                      	</li>
+                      </div>
+					  <div ng-if="usersAvailable">
+						  <li ng-repeat="peeps in people">
+						    <span><a href ng-click="info(peeps)">{{peeps.name}}</a></span>
+						  </li>
+					  <div>
+					</ul>   
+                </div>
+        </div>
+    </div>
+	  
+</div>

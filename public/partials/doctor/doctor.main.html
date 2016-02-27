@@ -1,0 +1,116 @@
+
+<style>
+  .a-hov:hover {
+    cursor:default;
+  }
+</style>
+
+<div id="page-wrapper">
+
+
+  <div class="container-fluid">
+
+      <!-- Page Heading -->
+      <div class="row">
+          <div class="col-lg-12">
+              <h1 class="page-header">
+                  Welcome Dr. {{info.lastName}}!
+              </h1>
+              <ol class="breadcrumb">
+                  <li class="active">
+                      <i class="fa fa-dashboard"></i> Dashboard
+                  </li>
+              </ol>
+          </div>
+      </div>
+      <!-- /.row -->
+  <div ng-if="!informationReceived">        
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="alert alert-info alert-dismissable">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <i class="fa fa-info-circle"></i>  <strong>We don't yet have your personal information.</strong> Please fill out <a ui-sref="doctor.add" class="alert-link">this form</a> to begin!
+              </div>
+          </div>
+      </div>
+  </div>
+      <!-- /.row -->
+<!--   Four divs -->
+        <div ng-include src="'partials/doctor/ChatDocsAvailable.html'"> </div>
+
+
+          <div ng-include src="'partials/doctor/ChatUsersAvailable.html'">
+           
+          </div>
+
+
+      <!-- /.row -->
+
+
+
+<!--    Three divs  -->   
+      <div class="row" >
+          <div class="col-lg-4" ng-controller="DoctorGetTasksController">
+
+
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h3 class="panel-title">How to use</h3>
+                  </div>
+                  <div class="panel-body">
+                      <br>Begin by entering your information</br>
+                      <br>Chat with users and other doctors. You can only chat with users who check one of your "fields of expertise."</br>
+                      <br>Read past chats you've had</br>
+                      <br>Enter a task and read past tasks</br>
+                  </div>
+              </div>
+          </div>
+
+
+          <div class="col-lg-4" ng-controller="DoctorGetTasksController">
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Tasks Panel</h3>
+                  </div>
+                  <div class="panel-body">
+                      <div class="list-group">
+                        <div ng-repeat="(key, value) in tasks">
+                          <a href="" class="list-group-item a-hov" class>
+                              <span class="badge">{{value.time}}</span>
+                              <i class="fa fa-fw fa-calendar"></i> {{value.title}}
+                          </a>
+                        </div>
+                      </div>
+                      <div class="text-right">
+                          <a ui-sref="doctor.alltasks">View All Tasks <i class="fa fa-arrow-circle-right"></i></a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-4" ng-controller="DoctorGetChatsController">
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Chat History</h3>
+                  </div>
+                  <div class="panel-body">
+                      <div class="list-group">
+                        <div ng-repeat="(key, value) in chats | objLimitTo: limit">
+                          <a href="" ng-click="ind(key, value);$event.preventDefault()" class="list-group-item">
+                              <span class="badge">{{value.time}}</span>
+                              <i class="fa fa-fw fa-calendar"></i> {{value.partner}}
+                          </a>
+                        </div>
+                      </div>
+                      <div class="text-right">
+                          <a href="" ng-click="increaseLimit()">See more chats<i class="fa fa-arrow-circle-right"></i></a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+      </div> 
+      <!-- /.row -->
+
+  </div>
+  <!-- /.container-fluid -->
+</div>  

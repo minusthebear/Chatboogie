@@ -1,0 +1,29 @@
+<div modal="theModal" class="modal fade" id="docInfoModal" tabindex="-1" role="dialog" aria-labelledby="createRoomLabel" aria-hidden="true" close="close()">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+		        <button type="button" class="close" ng-click="close(false)" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title">Would you like to chat with this doctor?</h4>
+			</div>
+				<div class="modal-body">
+					{{user}}
+					<ul>
+						<li>{{user.lastName}}, {{user.firstName}} {{user.middleName}}</li>
+						<li>{{user.email}}</li>
+						<li>{{user.fields}}</li>
+						<li>{{user.university}}</li>
+						<li>{{user.work}}</li>
+						<li ng-if="user.message">{{user.message}}</li>
+					</ul>
+				</div>
+
+				<div class="modal-footer" ng-if="user.message">
+					<button type="button" ng-click="close(false)" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>				
+				<div class="modal-footer" ng-if="!user.message">
+					<button type="button" ng-click="close(false)" class="btn btn-default" data-dismiss="modal">No</button>
+       				 <button type="button" ng-click="close(true)" class="btn btn-primary" data-dismiss="modal">Yes</button>
+				</div>
+		</div>
+	</div>
+</div>

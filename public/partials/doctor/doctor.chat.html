@@ -1,0 +1,40 @@
+<style>
+	ul {
+		list-style-type: none;
+	}
+</style>
+
+<div id="docChatWrap" ng-controller="DoctorChatCtrl">
+
+	<div id="page-wrapper">
+
+
+	  <div class="container-fluid">
+		<div class="row">
+
+			<div class="col-lg-8">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						Chat
+					</div>
+					<div>			
+						<div>
+							<ul>
+								<li ng-repeat="msg in msgs track by $index">{{msg.name}}: {{msg.text}}</li>
+							</ul>
+						</div>
+					</div>
+
+					<form ng-submit="sendMsg()">
+						<input type="text" ng-model="chat.msg"/>
+						<p/>
+						<button class="btn btn-primary " name="submit" type="submit"> Submit </button>
+						<input type="button" class="btn btn-default" ng-click="leave($event)" value="Leave room"/>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	  </div>
+	</div>
+</div>
