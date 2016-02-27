@@ -1,12 +1,7 @@
-Dec 10, 2014
+// Run with nodemon app.js
+// It should be in development mode. If not, type in export NODE_ENV=development
 
-First and foremost, changed server.js to app.js because I have added a server folder to the root. 
-Now it can work with npm start if you so choose.
- I still use nodemon app.js.
+// Make sure Redis and Mongod are running.
 
-Got the beginning of Mongo set up. Now you must log in as one of the five users in the Express.js file.
-I use Mongoose and MongoDB for the database and Passport for the authentication.
-You also must start up Mongo for this project to work.
+//  runs on port 3000
 
-
-Added a new folder called server to the root. Added a couple of server-side javascript files to the folder.
