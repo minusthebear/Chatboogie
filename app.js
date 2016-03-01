@@ -19,7 +19,7 @@ var redisStore = require('connect-redis')(sess);
 var RedisStore = new redisStore(RedisClient);
 var Room = require('./server/models/Room');
 var SocketFunc = require('./server/socket/SocketFunc');
-// 	,	RedisSocket = require('./routes/RedisSocket')
+
 
 sessionService.initializeRedis(RedisClient, RedisStore);
 
@@ -44,16 +44,10 @@ require('./routes/index')(app, RedisClient, io);
 
 
 io.use(function (socket, next) {
-	// Working on this now
-	// I tried cookieParser.signedCookie(parsedCookie['connect.sid'], config.secret) like one a Redis book
-	// of mine said to try, but it kept breaking.
-	// I'm exploring using a function I found on StackOverflow, parseCookies(), to get the cookie information
-	// and then use that for authentication. If you know a better way, I'd love to know.
   var parseCookie = cookieParser(config.secret);
 
   var handshake = socket.request;
 	var parsedCookie = handshake.headers.cookie;
-	//console.log(parsedCookie);
 	var Cookies = parseCookies(socket.request);
 
   console.log("parsedCookie");
@@ -66,8 +60,6 @@ io.use(function (socket, next) {
 		}
 	};
 	
-	//console.log("parseCookie:");
-
 	var func = cookieParser;
 
 	cookieParser(config.secret)(req, null, function(){});
@@ -77,7 +69,6 @@ io.use(function (socket, next) {
 
   parseCookie(handshake, null, function (err, data) {
       sessionService.get(handshake, function (err, session) {
-          //console.log(session);
           if (err)
               next(new Error(err.message));
           if (!session || (session == null || undefined || false))
@@ -85,20 +76,9 @@ io.use(function (socket, next) {
               
           if (!!session.isAuthenticated) {
             console.log("SESSION IS AUTHENTICATED!!!");
-    			} else {
-    				//console.log("No session to report");
-    			}
+    			} 
 		
           handshake.session = session;
-//      //console.log(handshake);
-//			//console.log(session);
-//			//console.log(handshake.headers.cookie);
-/*
-* 			Find out a way to have this cookie be unique to this site.
-* 			Currently this cookie is also sharing the cookie with IOI chat
-* 			Make this cookie unique.
-* 
-*/
           next();
       });
   });
@@ -129,15 +109,15 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error.html', {
-        message: err.message,
-        error: {}
-    });
-});
-
-// var SocketServer = server.listen(config.port);
+if (app.get('env') === 'production'){
+  app.use(function(err, req, res, next) {
+      res.status(err.status || 500);
+      res.render('error.html', {
+          message: err.message,
+          error: {}
+      });
+  });
+}
 
 server.listen(config.port);
 
