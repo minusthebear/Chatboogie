@@ -1,3 +1,6 @@
+// App designed by Matthew Hamann, matt.hamann1982@gmail.com
+
+
 var express = require('express') 
   , path = require('path') 
   , rootPath = path.normalize(__dirname + '/../')

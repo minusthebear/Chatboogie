@@ -1,3 +1,6 @@
+// App designed by Matthew Hamann, matt.hamann1982@gmail.com
+
+
 app.controller('DoctorMainController', ['$state', '$store', '$scope', '$window', 'socket', 'doctorFactory', 'logoutFactory', 'ModalService', 'UService', 'JService', 
 	function DoctorMainController($state, $store, $scope, $window, socket, doctorFactory, logoutFactory, ModalService, UService, JService) {
 

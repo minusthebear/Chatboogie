@@ -1,3 +1,6 @@
+// App designed by Matthew Hamann, matt.hamann1982@gmail.com
+
+
 var config = {
 	port: 3000,
 	secret: 'WednesdayNightMeatBandits',

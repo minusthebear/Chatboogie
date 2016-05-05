@@ -1,3 +1,5 @@
+// App designed by Matthew Hamann, matt.hamann1982@gmail.com
+
 var express = require('express') 
   , app = express()
   , sess = require('express-session')

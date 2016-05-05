@@ -1,4 +1,4 @@
-// socket, mainCtrl, and JService are here
+// App designed by Matthew Hamann, matt.hamann1982@gmail.com
 
 var app = angular.module('app', ['ngResource', 'ui.router', 'ui.bootstrap', 'ngCookies', 'angularModalService']);
 	

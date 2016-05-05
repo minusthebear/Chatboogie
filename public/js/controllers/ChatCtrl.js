@@ -1,3 +1,6 @@
+// App designed by Matthew Hamann, matt.hamann1982@gmail.com
+
+
 app.controller('ChatCtrl', ['$scope', '$state', 'socket', '$store', '$timeout', 'UserFactory',
 	function ($scope, $state, socket, $store, $timeout, UserFactory) {
 			console.log("Testing");

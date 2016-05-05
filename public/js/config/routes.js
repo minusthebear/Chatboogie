@@ -1,3 +1,6 @@
+// App designed by Matthew Hamann, matt.hamann1982@gmail.com
+
+
 app.config(function ($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
     $locationProvider.html5Mode(true);

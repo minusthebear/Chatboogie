@@ -1,3 +1,5 @@
+// App designed by Matthew Hamann, matt.hamann1982@gmail.com
+
 app.controller('DoctorChatCtrl', ['$scope', '$state', 'socket', '$store', '$timeout', 'doctorFactory', 'UService', 'JService', 'RService', 'logoutFactory',
 	function ($scope, $state, socket, $store, $timeout, doctorFactory, UService, JService, RService, logoutFactory) {
 

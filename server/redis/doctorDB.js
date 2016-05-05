@@ -1,3 +1,6 @@
+// App designed by Matthew Hamann, matt.hamann1982@gmail.com
+
+
 var client = require('./index').redisClient,
   Q = require('q');  
 var redisKeys = Q.nbind(client.keys, client);

@@ -1,3 +1,5 @@
+// App designed by Matthew Hamann, matt.hamann1982@gmail.com
+
 var client = require('./index').redisClient,
   Q = require('q'),
   redisZadd = Q.nbind(client.zadd, client),

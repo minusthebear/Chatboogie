@@ -1,3 +1,6 @@
+// App designed by Matthew Hamann, matt.hamann1982@gmail.com
+
+
 var expressSession = require('express-session'),
 	ConnectRedis = require('connect-redis')(expressSession),
 	redis = require('redis'),

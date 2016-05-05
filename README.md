@@ -17,3 +17,6 @@ Please explore the application!
 
 //  runs on port 3000
 
+// App designed by Matthew Hamann, matt.hamann1982@gmail.com
+
+
