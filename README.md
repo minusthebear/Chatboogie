@@ -1,6 +1,6 @@
 The goal of this application is to show my progress and burgeoning skills as a programmer. The application is a two-tiered chat application, one where privileged users ("doctors") and non-privileged users ("users") can chat with one another.
 
-This application uses the MEAN Stack framework (MongoDB, Express, Angular.JS, Node.JS). I use Socket.IO for real-time bidirectional communication. I use Redis as the data structure server.
+This application uses the MEAN Stack framework (MongoDB, Express, Angular.JS, Node.JS). I use Socket.IO for real-time bidirectional communication. I use Redis as the data structure store.
 
 There are two options on this page: you can either register as a temporary "user" and your information is erased in a half-hour, or you could register as a "doctor" and have your information stored.
 
@@ -17,6 +17,5 @@ Please explore the application!
 
 //  runs on port 3000
 
-// App designed by Matthew Hamann, matt.hamann1982@gmail.com
 
 
