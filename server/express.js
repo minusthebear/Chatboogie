@@ -89,20 +89,14 @@ module.exports = function(app, RedisStore) {
 		function(req, username, password, done) {
 			User.findOne({username:username}).exec(function(err, user) {
 				if(err) {
-					console.log("THIS IS AN ERROR!");
 					return done(err);
 				} else if(!user) { 
-					console.log("NO USER");
 					return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
 				} else {
-					console.log("IT came here");
 					user.comparePasswords(password, function(err, isMatch){
-						console.log("DID IT WORK?");
 						if(!isMatch){
-							console.log("not a match");
 							return done(null, false, req.flash('loginMessage', 'Invalid username or password'));
 						} else {
-							console.log("IT CAME TO THE END");
 							return done(null, user);							
 						}
 					});
@@ -157,13 +151,10 @@ module.exports = function(app, RedisStore) {
 			console.log('local-temp-login');
 			User.findOne({username: username}).exec(function(err, user) {
 				if(err) {
-					console.log("ERROR!");
 					return done(err);
 				} else if(!user) { 
-					console.log("No user!!!");
 					return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
 				} else {
-					console.log("THIS WORKED!");
 					return done(null, user);
 				}
 			});
@@ -208,13 +199,11 @@ module.exports = function(app, RedisStore) {
 
 	passport.serializeUser(function(user, done) {
 		if(user) {
-			console.log("IN SERIALIZE USER");
 			done(null, user._id);
 		} 
 	});
 	passport.deserializeUser(function(id, done) {
 		User.findOne({_id:id}).exec(function(err, user) {
-			console.log("IN DESERIALIZE");
 			if (err) done(err);
 
 			if (user) {
